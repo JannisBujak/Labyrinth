@@ -3,4 +3,4 @@ project(Labyrinth)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Labyrinth main.cpp source/Labyrinth.cpp source/Labyrinth.h)
+add_executable(Labyrinth main.cpp source/Labyrinth.cpp source/Labyrinth.h source/Field.cpp source/Field.h)

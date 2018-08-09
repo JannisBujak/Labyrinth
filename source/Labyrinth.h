@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include "Field.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
 	int findWayLength();
 
 private:
-	vector<vector < char> > field;
+	vector<vector < Field*> > field;
 };
 
 

@@ -24,9 +24,9 @@ Labyrinth::Labyrinth(string filename) {
 	}
 
 	for(string s : text){
-		vector<char > line;
+		vector<Field* > line;
 		for(char c : s){
-			line.push_back(c);
+			line.push_back(new Field(c));
 		}
 		field.push_back(line);
 	}
@@ -34,9 +34,9 @@ Labyrinth::Labyrinth(string filename) {
 }
 
 void Labyrinth::print() {
-	for(vector<char> line : field){
-		for (char c : line) {
-			cout << c;
+	for(vector<Field* > line : field){
+		for (Field* f : line) {
+			cout << f->getSymbol();
 		}
 		cout << endl;
 	}
