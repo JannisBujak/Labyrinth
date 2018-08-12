@@ -16,14 +16,14 @@ public:
 
 	explicit Labyrinth(string filename);
 	void print();
-	int findWayLength();
+
 	Field* getFieldAt(int x, int y);
 
 	int getWidth() const;
 
 	int getHeight() const;
 
-	Position *getStartPosition();
+	Field * getStart();
 
 private:
 	vector<vector < Field*> > field;

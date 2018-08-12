@@ -14,3 +14,11 @@ Position::Position(int x, int y) {
 void Position::print() {
 	cout << "(" << x << "|" << y << ")" << endl;
 }
+
+int Position::getX() const {
+	return x;
+}
+
+int Position::getY() const {
+	return y;
+}

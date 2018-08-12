@@ -12,6 +12,10 @@ private:
 public:
 	Position(int x, int y);
 	void print();
+
+	int getX() const;
+
+	int getY() const;
 };
 
 

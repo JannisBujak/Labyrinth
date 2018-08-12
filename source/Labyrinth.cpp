@@ -50,10 +50,6 @@ void Labyrinth::print() {
 	}
 }
 
-int Labyrinth::findWayLength() {
-	return 0;
-}
-
 Field *Labyrinth::getFieldAt(int x, int y) {
 	return field[y][x];
 }
@@ -66,11 +62,11 @@ int Labyrinth::getHeight() const {
 	return height;
 }
 
-Position *Labyrinth::getStartPosition() {
+Field * Labyrinth::getStart() {
 	for(vector<Field*> row : field){
 		for(Field* f : row){
 			if(f->getSymbol() == 'O')
-				return f->getPosition();
+				return f;
 		}
 	}
 }

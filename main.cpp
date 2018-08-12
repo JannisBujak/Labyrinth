@@ -1,16 +1,21 @@
 #include <iostream>
 #include <vector>
 #include "source/Labyrinth.h"
-
+#include "source/Way.h"
 using namespace std;
 
 int main() {
 
 	Labyrinth* l = new Labyrinth("labyrinth.txt");
 
-	Position* start = l->getStartPosition();
+	Field* start = l->getStart();
 
-	start->print();
+	start->getPosition()->print();
+
+	vector<Field*> forbiddenFields;
+	Way* w = new Way(start);
+
+	w->findShortestWay(start->getPosition(), l, forbiddenFields);
 
 	return 0;
 }
