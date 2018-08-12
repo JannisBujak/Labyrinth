@@ -61,11 +61,13 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 			(new Position(x, y))->print();
 
 			Field* potentialField = l->getFieldAt(x, y);
+			bool isForbidden;
 			for(Field* f : forbiddenFields){
 				if(potentialField->getX() == f->getX() && potentialField->getY() == f->getY())
-					continue;
+					isForbidden = true;
 			}
-
+			if(isForbidden)
+				continue;
 
 			Way* w = new Way(potentialField);
 			vector<Field*> forbiddenFieldsCopy;
