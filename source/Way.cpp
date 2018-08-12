@@ -68,14 +68,14 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 
 
 			Way* w = new Way(potentialField);
-			forbiddenFields.push_back(potentialField);
-
-			Way* recursiveWay = w->findShortestWay(w->getField()->getPosition(), l, forbiddenFields);
-			if(recursiveWay != nullptr){
-				way.push_back(recursiveWay);
+			vector<Field*> forbiddenFieldsCopy;
+			for(Field* f : forbiddenFields){
+				forbiddenFieldsCopy.push_back(f);
 			}
+			forbiddenFieldsCopy.push_back(this->getField());
 
-			forbiddenFields.pop_back();
+			Way* recursiveWay = w->findShortestWay(w->getField()->getPosition(), l, forbiddenFieldsCopy);
+			way.push_back(recursiveWay);
 		}
 	}
 	return nullptr;
