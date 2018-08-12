@@ -7,9 +7,10 @@ using namespace std;
 int main() {
 
 	Labyrinth* l = new Labyrinth("labyrinth.txt");
-	int length = (l->findWayLength());
 
-	cout << length;
+	Position* start = l->getStartPosition();
+
+	start->print();
 
 	return 0;
 }

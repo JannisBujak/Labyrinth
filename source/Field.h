@@ -6,14 +6,22 @@
 #define LABYRINTH_FIELD_H
 
 
+#include "Position.h"
+
 class Field {
 public:
-	Field(char symbol);
+	Field(char symbol, int x, int y);
 
 	char getSymbol() const;
+	int getX() const;
+	int getY() const;
+	Position* getPosition();
 
+	void printPosition();
 private:
 	char symbol;
+	int x;
+	int y;
 };
 
 

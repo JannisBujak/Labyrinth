@@ -17,9 +17,18 @@ public:
 	explicit Labyrinth(string filename);
 	void print();
 	int findWayLength();
+	Field* getFieldAt(int x, int y);
+
+	int getWidth() const;
+
+	int getHeight() const;
+
+	Position *getStartPosition();
 
 private:
 	vector<vector < Field*> > field;
+	int width;
+	int height;
 };
 
 
