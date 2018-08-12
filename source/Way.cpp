@@ -96,3 +96,8 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	this->nextWay = returnWay;
 	return returnWay;
 }
+
+void Way::print() {
+	this->getField()->printPosition();
+	nextWay->print();
+}

@@ -19,6 +19,10 @@ public:
 	Way* findShortestWay(Position* p,Labyrinth* l, vector<Field*> forbiddenFields);
 
 	bool isInside(Field* field);
+
+	//print
+	void print();
+
 	//getter
 	Field *getField() const;
 	Way *getNextWay() const;
