@@ -51,11 +51,15 @@ int Way::getLengthFromHere() {
 }
 
 Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFields) {
+	if(this->getField()->getSymbol() == 'D')
+		return this;
 	vector<Way*> way;
 	for(int y = p->getY() - 1; y <= p->getY() + 1; y++){
 		for(int x = p->getX() - 1; x <= p->getX() + 1; x++){
 
 			if((x == p->getX() && y == p->getY()) || (x != p->getX() && y != p->getY()) || x < 0 || y < 0 || l->getWidth() <= x || l->getHeight() <= y){
+				continue;
+			}else if(l->getFieldAt(x, y)->getSymbol() != '-'){
 				continue;
 			}
 			(new Position(x, y))->print();
@@ -76,9 +80,19 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 			}
 			forbiddenFieldsCopy.push_back(this->getField());
 
-			Way* recursiveWay = w->findShortestWay(w->getField()->getPosition(), l, forbiddenFieldsCopy);
+			Way* recursiveWay = w->findShortestWay(new Position(x, y), l, forbiddenFieldsCopy);
 			way.push_back(recursiveWay);
+
 		}
 	}
-	return nullptr;
+	int length = 0;
+	Way* returnWay;
+	for(Way* w : way){
+		if(w->getLengthFromHere() > length){
+			length = w->getLengthFromHere();
+			returnWay = w;
+		}
+	}
+	this->nextWay = returnWay;
+	return returnWay;
 }
