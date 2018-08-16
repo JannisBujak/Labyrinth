@@ -16,7 +16,11 @@ int main() {
 
 	Way* shortestWay = Way::findShortestWay(start->getPosition(), l, forbiddenFields);
 
+	cout << "start: ";
 	shortestWay->print();
-	cout << shortestWay->getLengthFromHere();
+	cout << shortestWay->getLengthFromHere() << endl;
+
+	system("pause");
+
 	return 0;
 }
