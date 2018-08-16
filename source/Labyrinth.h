@@ -17,6 +17,7 @@ public:
 	explicit Labyrinth(string filename);
 	void print();
 
+	Field* getFieldAt(Position* p);
 	Field* getFieldAt(int x, int y);
 
 	int getWidth() const;

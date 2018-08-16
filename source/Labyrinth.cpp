@@ -38,7 +38,7 @@ Labyrinth::Labyrinth(string filename) {
 	}
 	height = field.size();
 
-	print();
+	//print();
 }
 
 void Labyrinth::print() {
@@ -52,6 +52,10 @@ void Labyrinth::print() {
 
 Field *Labyrinth::getFieldAt(int x, int y) {
 	return field[y][x];
+}
+
+Field *Labyrinth::getFieldAt(Position *p) {
+	return field[p->getY()][p->getX()];
 }
 
 int Labyrinth::getWidth() const {
@@ -69,4 +73,6 @@ Field * Labyrinth::getStart() {
 				return f;
 		}
 	}
+	cout << "Not found" << endl;
+	exit(-1);
 }

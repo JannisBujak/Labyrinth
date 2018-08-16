@@ -13,7 +13,7 @@ private:
 	Field* field;
 	Way* nextWay;
 public:
-	Way(Field* field);
+	Way();
 	void addField(Field* field);
 
 	Way* findShortestWay(Position* p,Labyrinth* l, vector<Field*> forbiddenFields);
