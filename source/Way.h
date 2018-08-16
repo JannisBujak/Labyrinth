@@ -14,7 +14,7 @@ private:
 	Way* nextWay;
 public:
 	Way(Field* field);
-	//~Way();
+	~Way();
 	void addField(Field* field);
 	void appendWay(Way* way);
 

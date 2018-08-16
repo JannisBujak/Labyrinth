@@ -62,7 +62,6 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	Field* fieldAtP = l->getFieldAt(p);
 	Way* thisWay = new Way(l->getFieldAt(p));
 	if(fieldAtP->getSymbol() == 'x'){
-		//delete(fieldAtP);   delete(thisWay);
 		return nullptr;
 	}
 	if(fieldAtP->getSymbol() == 'O'){
@@ -81,7 +80,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	for(Position* pos : testedPositions){
 
 		if(pos->getX() < 0 || pos->getX() >= l->getWidth() || pos->getY() < 0 || pos->getY() >= l->getHeight()){
-			//delete(pos);
+			delete(pos);
 			continue;
 		}
 		if(Way::isInFieldVector(l->getFieldAt(pos), forbiddenFields)){
@@ -90,7 +89,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 
 		Way* potentialWay = findShortestWay(pos, l, forbiddenFieldsCopy);
 		if(potentialWay == nullptr){
-			//delete(pos);
+			delete(pos);
 			continue;
 		}
 		possibleWays.push_back(potentialWay);
@@ -102,7 +101,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 			length = way->getLengthFromHere();
 			returnWay = way;
 		}else{
-			//way->~Way();
+			delete(way);
 		}
 	}
 	if(length == -1 || returnWay == nullptr){
@@ -150,11 +149,10 @@ bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
 	return false;
 }
 
-/*Way::~Way() {
-	cout << "Hi";
+Way::~Way() {
 	field = nullptr;
 	if(nextWay != nullptr) {
 		nextWay->~Way();
 	}
 	cout << endl;
-}*/
+}
