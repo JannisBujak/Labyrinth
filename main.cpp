@@ -6,17 +6,17 @@ using namespace std;
 
 int main() {
 
-	Labyrinth* l = new Labyrinth("labyrinthS.txt");
+	Labyrinth* l = new Labyrinth("labyrinth.txt");
+	l->print();
+	cout << endl;
 
 	Field* start = l->getStart();
 
-	start->getPosition()->print();
-	cout << endl;
-
 	vector<Field*> forbiddenFields;
 
-	Way* w = new Way();
-	Way* theWay = w->findShortestWay(start->getPosition(), l, forbiddenFields);
+	Way* shortestWay = Way::findShortestWay(start->getPosition(), l, forbiddenFields);
 
+	shortestWay->print();
+	cout << shortestWay->getLengthFromHere();
 	return 0;
 }

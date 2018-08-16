@@ -22,3 +22,5 @@ int Position::getX() const {
 int Position::getY() const {
 	return y;
 }
+
+Position::~Position() = default;

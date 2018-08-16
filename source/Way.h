@@ -13,10 +13,14 @@ private:
 	Field* field;
 	Way* nextWay;
 public:
-	Way();
+	Way(Field* field);
+	//~Way();
 	void addField(Field* field);
+	void appendWay(Way* way);
 
-	Way* findShortestWay(Position* p,Labyrinth* l, vector<Field*> forbiddenFields);
+	static Way* findShortestWay(Position* p,Labyrinth* l, vector<Field*> forbiddenFields);
+	static vector<Field*> copyFieldVector(vector<Field*> fields);
+	static bool isInFieldVector(Field* f, vector<Field*> fields);
 
 	bool isInside(Field* field);
 

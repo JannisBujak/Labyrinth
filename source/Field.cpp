@@ -25,7 +25,7 @@ int Field::getY() const {
 }
 
 void Field::printPosition() {
-	cout << "(" << x << "|" << y << "): " << symbol << endl;
+	cout << "(" << this->getX() << "|" << this->getY() << "): " << getSymbol() << endl;
 }
 
 Position *Field::getPosition() {

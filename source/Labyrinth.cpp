@@ -25,8 +25,11 @@ Labyrinth::Labyrinth(string filename) {
 				if(c == ' ')    continue;
 				line.push_back(new Field(c, x, y));
 			}
-			if(line.size() > width)
+			if(width == 0){
 				width = line.size();
+			}else if(width != line.size()){
+				exit(3);
+			}
 
 
 			field.push_back(line);
@@ -69,7 +72,7 @@ int Labyrinth::getHeight() const {
 Field * Labyrinth::getStart() {
 	for(vector<Field*> row : field){
 		for(Field* f : row){
-			if(f->getSymbol() == 'O')
+			if(f->getSymbol() == 'D')
 				return f;
 		}
 	}

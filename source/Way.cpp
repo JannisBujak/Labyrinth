@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Way.h"
+#include "Field.h"
 using namespace std;
 
 /*Way::Way() {
@@ -12,11 +13,14 @@ using namespace std;
 	//this->nextWay = new Way(nullptr);
 	cout << "K" << endl;
 }*/
-Way::Way() = default;
+Way::Way(Field* field){
+	this->field = field;
+	nextWay = nullptr;
+}
 
 void Way::addField(Field *field) {
 	if(getNextWay() == nullptr) {
-		setNextWay(new Way());
+		setNextWay(new Way(field));
 		return;
 	}
 	nextWay->addField(field);
@@ -54,62 +58,103 @@ int Way::getLengthFromHere() {
 }
 
 Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFields) {
-	Field *fieldAtPosition = l->getFieldAt(p);
-	p->print();
-	if (fieldAtPosition->getSymbol() == 'D') {
-		this->field = fieldAtPosition;
-		return this;
-	}
-	if (fieldAtPosition->getSymbol() != '-' && fieldAtPosition->getSymbol() != 'O'){
+
+	Field* fieldAtP = l->getFieldAt(p);
+	Way* thisWay = new Way(l->getFieldAt(p));
+	if(fieldAtP->getSymbol() == 'x'){
+		//delete(fieldAtP);   delete(thisWay);
 		return nullptr;
 	}
-	vector<Way*> way;
-	for(int y = p->getY() - 1; y <= p->getY() + 1; y++){
-		for(int x = p->getX() - 1; x <= p->getX() + 1; x++){
+	if(fieldAtP->getSymbol() == 'O'){
+		return new Way(fieldAtP);
+	}
+	vector<Field*> forbiddenFieldsCopy = Way::copyFieldVector(forbiddenFields);
+	forbiddenFieldsCopy.push_back(l->getFieldAt(p));
 
-			if((x == p->getX() && y == p->getY()) || (x != p->getX() && y != p->getY())
-			|| x < 0 || y < 0 || l->getWidth() <= x){
-				continue;
-			}
+	vector<Position*> testedPositions = { new Position(p->getX() - 1, p->getY()),
+									   new Position(p->getX() + 1, p->getY()),
+									   new Position(p->getX(), p->getY() - 1),
+									   new Position(p->getX(), p->getY() + 1) };
 
+	vector<Way*> possibleWays;
 
-			bool isForbidden;
-			for(Field* f : forbiddenFields){
-				if(fieldAtPosition->getX() == f->getX() && fieldAtPosition->getY() == f->getY()) {
-					isForbidden = true;
-					break;
-				}
-			}
-			if(isForbidden)
-				continue;
+	for(Position* pos : testedPositions){
 
-			Way* w = new Way();
-			vector<Field*> forbiddenFieldsCopy;
-			for(Field* f : forbiddenFields){
-				forbiddenFieldsCopy.push_back(f);
-			}
-			forbiddenFieldsCopy.push_back(fieldAtPosition);
-			nextWay = w->findShortestWay(new Position(x, y), l, forbiddenFieldsCopy);
+		if(pos->getX() < 0 || pos->getX() >= l->getWidth() || pos->getY() < 0 || pos->getY() >= l->getHeight()){
+			//delete(pos);
+			continue;
+		}
+		if(Way::isInFieldVector(l->getFieldAt(pos), forbiddenFields)){
+			continue;
+		}
 
-			if(nextWay == nullptr)
-				continue;
-			way.push_back(nextWay);
-
+		Way* potentialWay = findShortestWay(pos, l, forbiddenFieldsCopy);
+		if(potentialWay == nullptr){
+			//delete(pos);
+			continue;
+		}
+		possibleWays.push_back(potentialWay);
+	}
+	int length = - 1;
+	Way* returnWay = nullptr;
+	for(Way* way : possibleWays){
+		if(way->getLengthFromHere() > length){
+			length = way->getLengthFromHere();
+			returnWay = way;
+		}else{
+			//way->~Way();
 		}
 	}
-	int length = 0;
-	Way* returnWay;
-	for(Way* w : way){
-		if(w->getLengthFromHere() > length){
-			length = w->getLengthFromHere();
-			returnWay = w;
-		}
+	if(length == -1 || returnWay == nullptr){
+		return nullptr;
 	}
-	this->nextWay = returnWay;
-	return this;
+	thisWay->appendWay(returnWay);
+	return thisWay;
 }
 
 void Way::print() {
+	if(this == nullptr || this->field == nullptr){
+		return;
+	}
 	this->getField()->printPosition();
-	nextWay->print();
+	if(nextWay != nullptr) {
+		cout << "   ->  ";
+		nextWay->print();
+	}
 }
+
+void Way::appendWay(Way *way) {
+	if(this == nullptr)
+		exit(2);
+	if(nextWay == nullptr){
+		nextWay = way;
+		return;
+	}
+	nextWay->appendWay(way);
+}
+
+vector<Field *> Way::copyFieldVector(vector<Field*> fields) {
+	vector<Field *> vector1;
+	for(Field* f : fields){
+		vector1.push_back(f);
+	}
+	return vector1;
+}
+
+bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
+	for(Field* field: fields){
+		if(field == f){
+			return true;
+		}
+	}
+	return false;
+}
+
+/*Way::~Way() {
+	cout << "Hi";
+	field = nullptr;
+	if(nextWay != nullptr) {
+		nextWay->~Way();
+	}
+	cout << endl;
+}*/

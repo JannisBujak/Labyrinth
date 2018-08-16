@@ -11,6 +11,7 @@ private:
 	int x, y;
 public:
 	Position(int x, int y);
+	~Position();
 	void print();
 
 	int getX() const;
