@@ -4,12 +4,13 @@
 #include "source/Way.h"
 using namespace std;
 
+
+
 int main() {
 
 	Labyrinth* l = new Labyrinth("labyrinth.txt");
 	l->print();
 	cout << endl;
-
 	Field* start = l->getStart();
 
 	vector<Field*> forbiddenFields;
@@ -20,6 +21,8 @@ int main() {
 	shortestWay->print();
 	cout << shortestWay->getLengthFromHere() << endl;
 
+
+	shortestWay->printField(l);
 	//system("pause");
 
 	return 0;

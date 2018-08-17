@@ -23,9 +23,10 @@ public:
 	static bool isInFieldVector(Field* f, vector<Field*> fields);
 
 	bool isInside(Field* field);
-
+	bool touchedThisField(int x, int y, Labyrinth* l);
 	//print
 	void print();
+	void printField(Labyrinth* l);
 
 	//getter
 	Field *getField() const;

@@ -61,7 +61,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 
 	Field* fieldAtP = l->getFieldAt(p);
 	Way* thisWay = new Way(l->getFieldAt(p));
-	if(fieldAtP->getSymbol() == 'x'){
+	if(fieldAtP->getSymbol() == '#'){
 		return nullptr;
 	}
 	if(fieldAtP->getSymbol() == 'O'){
@@ -96,6 +96,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 			continue;
 		}
 		possibleWays.push_back(potentialWay);
+		delete(pos);
 	}
 	int length = - 1;
 	Way* returnWay = nullptr;
@@ -122,6 +123,27 @@ void Way::print() {
 	if(nextWay != nullptr) {
 		cout << "   ->  ";
 		nextWay->print();
+	}
+}
+
+bool Way::touchedThisField(int x, int y, Labyrinth* l) {
+	if(this == nullptr)
+		return false;
+	if(field->getX() == x && field->getY() == y)
+		return true;
+	nextWay->touchedThisField(x, y, l);
+}
+
+void Way::printField(Labyrinth* l) {
+	for(int y = 0; y < l->getHeight(); y++){
+		for(int x = 0; x < l->getFieldAt(y).size(); x++){
+			if(touchedThisField(x, y, l)){
+				cout << l->getFieldAt(x, y)->getSymbol();
+			}else{
+				cout << ' ';
+			}
+		}
+		cout << endl;
 	}
 }
 
@@ -157,5 +179,4 @@ Way::~Way() {
 	if(nextWay != nullptr) {
 		nextWay->~Way();
 	}
-	cout << endl;
 }
