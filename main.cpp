@@ -1,12 +1,15 @@
+#ifndef MAIN
+#define MAIN
+
 #include <iostream>
 #include <vector>
 #include "source/Labyrinth.h"
 #include "source/Way.h"
+
+
 using namespace std;
 
-
-
-int main() {
+int main(){
 
 	Labyrinth* l = new Labyrinth("labyrinth.txt");
 	l->print();
@@ -25,5 +28,8 @@ int main() {
 	shortestWay->printField(l);
 	//system("pause");
 
+	delete(shortestWay);
+	Way::printMemory();
 	return 0;
 }
+#endif

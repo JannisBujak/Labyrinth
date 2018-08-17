@@ -7,15 +7,20 @@
 #include "Field.h"
 using namespace std;
 
-/*Way::Way() {
-	//this->field = field;
-	//this->nextWay = nullptr;
-	//this->nextWay = new Way(nullptr);
-	cout << "K" << endl;
-}*/
+long Way::Memory = 0;
+
 Way::Way(Field* field){
+	Way::Memory++;
 	this->field = field;
 	nextWay = nullptr;
+}
+
+Way::~Way() {
+	Way::Memory--;
+	field = nullptr;
+	if(nextWay != nullptr) {
+		nextWay->~Way();
+	}
 }
 
 void Way::addField(Field *field) {
@@ -174,9 +179,6 @@ bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
 	return false;
 }
 
-Way::~Way() {
-	field = nullptr;
-	if(nextWay != nullptr) {
-		nextWay->~Way();
-	}
+void Way::printMemory() {
+	cout << Way::Memory << endl;
 }

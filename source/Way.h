@@ -10,6 +10,7 @@
 
 class Way {
 private:
+	static long Memory;
 	Field* field;
 	Way* nextWay;
 public:
@@ -27,6 +28,8 @@ public:
 	//print
 	void print();
 	void printField(Labyrinth* l);
+
+	static void printMemory();
 
 	//getter
 	Field *getField() const;
