@@ -19,7 +19,7 @@ Way::~Way() {
 	Way::Memory--;
 	field = nullptr;
 	if(nextWay != nullptr) {
-		nextWay->~Way();
+		delete(nextWay);
 	}
 }
 
@@ -65,12 +65,13 @@ int Way::getLengthFromHere() {
 Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFields) {
 
 	Field* fieldAtP = l->getFieldAt(p);
-	Way* thisWay = new Way(l->getFieldAt(p));
+	Way* thisWay = new Way(fieldAtP);
 	if(fieldAtP->getSymbol() == '#'){
+		delete(thisWay);
 		return nullptr;
 	}
 	if(fieldAtP->getSymbol() == 'O'){
-		return new Way(fieldAtP);
+		return thisWay;
 	}
 	vector<Field*> forbiddenFieldsCopy = Way::copyFieldVector(forbiddenFields);
 	forbiddenFieldsCopy.push_back(l->getFieldAt(p));
@@ -103,10 +104,12 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 		possibleWays.push_back(potentialWay);
 		delete(pos);
 	}
+
 	int length = - 1;
 	Way* returnWay = nullptr;
 	for(Way* way : possibleWays){
 		if(way->getLengthFromHere() < length || length == -1){
+			delete(returnWay);
 			length = way->getLengthFromHere();
 			returnWay = way;
 		}else{
@@ -180,5 +183,5 @@ bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
 }
 
 void Way::printMemory() {
-	cout << Way::Memory << endl;
+	cout << Way::Memory << " ways freed and not deleted." << endl;
 }

@@ -9,6 +9,7 @@
 class Position {
 private:
 	int x, y;
+	static long Memory;
 public:
 	Position(int x, int y);
 	~Position();
@@ -17,6 +18,10 @@ public:
 	int getX() const;
 
 	int getY() const;
+
+	//Memory
+	static void printMemory();
+
 };
 
 

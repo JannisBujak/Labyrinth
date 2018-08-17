@@ -11,6 +11,7 @@
 class Field {
 public:
 	Field(char symbol, int x, int y);
+	~Field();
 
 	char getSymbol() const;
 	int getX() const;
@@ -18,7 +19,12 @@ public:
 	Position* getPosition();
 
 	void printPosition();
+
+	//Memory
+	static void printMemory();
+
 private:
+	static long Memory;
 	char symbol;
 	int x;
 	int y;

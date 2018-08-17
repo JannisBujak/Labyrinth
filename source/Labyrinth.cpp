@@ -5,9 +5,13 @@
 #include "Labyrinth.h"
 #include <fstream>
 #include <vector>
+using namespace std;
+
+long Labyrinth::Memory = 0;
 
 Labyrinth::Labyrinth(string filename) {
 
+	Labyrinth::Memory++;
 	this->maxWidth = 0;
 	string file = "../text/" + filename;
 	//Most important values
@@ -82,4 +86,17 @@ Field * Labyrinth::getStart() {
 
 const vector<Field *> &Labyrinth::getFieldAt(int y) const {
 	return field[y];
+}
+
+Labyrinth::~Labyrinth() {
+	Labyrinth::Memory--;
+	for(vector<Field*> row : field) {
+		for(Field* field1 : row){
+			delete(field1);
+		}
+	}
+}
+
+void Labyrinth::printMemory() {
+	cout << Labyrinth::Memory << " Labyrinth freed and not deleted." << endl;
 }

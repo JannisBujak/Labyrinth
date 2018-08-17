@@ -29,7 +29,12 @@ int main(){
 	//system("pause");
 
 	delete(shortestWay);
+	delete(l);
+
 	Way::printMemory();
+	Field::printMemory();
+	Labyrinth::printMemory();
+	Position::printMemory();
 	return 0;
 }
 #endif

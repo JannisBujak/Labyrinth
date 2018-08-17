@@ -6,7 +6,14 @@
 #include <iostream>
 using namespace std;
 
+long Position::Memory = 0;
+
+Position::~Position(){
+	Position::Memory--;
+}
+
 Position::Position(int x, int y) {
+	Position::Memory++;
 	this->x = x;
 	this->y = y;
 }
@@ -23,4 +30,6 @@ int Position::getY() const {
 	return y;
 }
 
-Position::~Position() = default;
+void Position::printMemory() {
+	cout << Position::Memory << " Position freed and not deleted." << endl;
+}

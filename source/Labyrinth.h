@@ -15,6 +15,7 @@ class Labyrinth {
 public:
 
 	explicit Labyrinth(string filename);
+	~Labyrinth();
 	void print();
 
 	Field* getFieldAt(Position* p);
@@ -28,7 +29,12 @@ public:
 
 	Field * getStart();
 
+	//Memory
+	static void printMemory();
+
+
 private:
+	static long Memory;
 	vector<vector < Field*> > field;
 	int maxWidth;
 	int height;

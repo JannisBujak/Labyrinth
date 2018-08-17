@@ -6,7 +6,10 @@
 #include <iostream>
 using namespace std;
 
+long Field::Memory = 0;
+
 Field::Field(char symbol, int x, int y) {
+	Memory++;
 	this->symbol = symbol;
 	this->x = x;
 	this->y = y;
@@ -30,4 +33,12 @@ void Field::printPosition() {
 
 Position *Field::getPosition() {
 	return new Position(x, y);
+}
+
+void Field::printMemory() {
+	cout << Field::Memory << " fields freed and not deleted." << endl;
+}
+
+Field::~Field() {
+	Field::Memory--;
 }
