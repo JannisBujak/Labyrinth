@@ -27,7 +27,9 @@ public:
 
 	const vector<Field *> &getFieldAt(int y) const;
 
-	Field * getStart();
+	Field * getUniqueField(char c);
+
+	static vector<Position* > getOptimumFollowingPoints(Position *position, Position *end);
 
 	//Memory
 	static long getMemory();

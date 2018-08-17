@@ -14,7 +14,7 @@ int main(){
 	Labyrinth* l = new Labyrinth("labyrinth.txt");
 	l->print();
 	cout << endl;
-	Field* start = l->getStart();
+	Field* start = l->getUniqueField('S');
 
 	vector<Field*> forbiddenFields;
 
@@ -26,7 +26,7 @@ int main(){
 
 
 	shortestWay->printField(l);
-	//system("pause");
+	system("pause");
 
 	delete(shortestWay);
 	delete(l);

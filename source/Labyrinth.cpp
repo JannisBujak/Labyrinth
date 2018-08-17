@@ -73,10 +73,10 @@ int Labyrinth::getHeight() const {
 	return height;
 }
 
-Field * Labyrinth::getStart() {
+Field *Labyrinth::getUniqueField(char c) {
 	for(vector<Field*> row : field){
 		for(Field* f : row){
-			if(f->getSymbol() == 'S')
+			if(f->getSymbol() == c)
 				return f;
 		}
 	}
@@ -103,4 +103,39 @@ void Labyrinth::printMemory() {
 
 long Labyrinth::getMemory() {
 	return Memory;
+}
+
+vector<Position *> Labyrinth::getOptimumFollowingPoints(Position *position, Position *end) {
+
+	vector<Position*> array;
+
+	int xDiff = end->getX() - position->getX();     int yDiff = end->getY() - position->getY();
+	int absXDiff = abs(xDiff);                      int absYDiff = abs(yDiff);
+
+	int xDivide, yDivide;
+
+	if(xDiff == 0 || absXDiff == 0)         xDivide = 1;
+	else                                    xDivide = xDiff/absXDiff;
+
+	if(yDiff == 0 || absYDiff == 0)         yDivide = 1;
+	else                                    yDivide = yDiff/absYDiff;
+
+
+	if(absXDiff > absYDiff){
+
+		array.push_back(new Position((position->getX() + xDivide), position->getY()));
+		array.push_back(new Position(position->getX(), (position->getY()) + yDivide));
+		array.push_back(new Position(position->getX(), (position->getY()) - yDivide));
+		array.push_back(new Position((position->getX() - xDivide), position->getY()));
+
+	}else{
+
+		array.push_back(new Position(position->getX(), (position->getY() + yDivide)));
+		array.push_back(new Position((position->getX() + xDivide), position->getY()));
+		array.push_back(new Position((position->getX() - xDivide), position->getY()));
+		array.push_back(new Position(position->getX(), (position->getY() - yDivide)));
+
+	}
+
+	return array;
 }
