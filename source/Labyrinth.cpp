@@ -76,7 +76,7 @@ int Labyrinth::getHeight() const {
 Field * Labyrinth::getStart() {
 	for(vector<Field*> row : field){
 		for(Field* f : row){
-			if(f->getSymbol() == 'D')
+			if(f->getSymbol() == 'S')
 				return f;
 		}
 	}

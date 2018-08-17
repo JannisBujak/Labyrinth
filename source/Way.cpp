@@ -78,17 +78,17 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	if(fieldAtP->getSymbol() == '#'){
 		return nullptr;
 	}
-	Way* thisWay = new Way(fieldAtP);
-	if(fieldAtP->getSymbol() == 'O'){
-		return thisWay;
+	if(fieldAtP->getSymbol() == 'E'){
+		return new Way(fieldAtP);
 	}
 	vector<Field*> forbiddenFieldsCopy = Way::copyFieldVector(forbiddenFields);
 	forbiddenFieldsCopy.push_back(l->getFieldAt(p));
 
-	vector<Position*> testedPositions = { new Position(p->getX() - 1, p->getY()),
-									   new Position(p->getX() + 1, p->getY()),
-									   new Position(p->getX(), p->getY() - 1),
-									   new Position(p->getX(), p->getY() + 1) };
+	vector<Position*> testedPositions = {       new Position(p->getX() + 1, p->getY()),
+											 new Position(p->getX() - 1, p->getY()),
+											 new Position(p->getX(), p->getY() - 1),
+											 new Position(p->getX(), p->getY() + 1),
+											 };
 
 	vector<Way*> possibleWays;
 
@@ -128,9 +128,9 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	}
 
 	if(length == -1 || returnWay == nullptr){
-		delete thisWay;
 		return nullptr;
 	}
+	Way* thisWay = new Way(fieldAtP);
 	thisWay->appendWay(returnWay);
 	return thisWay;
 }
@@ -155,12 +155,24 @@ bool Way::touchedThisField(int x, int y, Labyrinth* l) {
 }
 
 void Way::printField(Labyrinth* l) {
+	cout << endl
+	<< "_ == Unused field" << endl
+	<< "+ == Used field" << endl
+	<< "# == Forbidden field" << endl
+	<< "S == Start" << endl
+	<< "E == End" << endl << endl;
+
 	for(int y = 0; y < l->getHeight(); y++){
 		for(int x = 0; x < l->getFieldAt(y).size(); x++){
 			if(touchedThisField(x, y, l)){
 				cout << l->getFieldAt(x, y)->getSymbol();
 			}else{
-				cout << ' ';
+				char c = l->getFieldAt(x, y)->getSymbol();
+				if(c == '+'){
+					cout << '_';
+				}else if (c == '#'){
+					cout << c;
+				}
 			}
 		}
 		cout << endl;
