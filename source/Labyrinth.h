@@ -20,15 +20,17 @@ public:
 	Field* getFieldAt(Position* p);
 	Field* getFieldAt(int x, int y);
 
-	int getWidth() const;
+	int getMaxWidth() const;
 
 	int getHeight() const;
+
+	const vector<Field *> &getFieldAt(int y) const;
 
 	Field * getStart();
 
 private:
 	vector<vector < Field*> > field;
-	int width;
+	int maxWidth;
 	int height;
 };
 

@@ -8,7 +8,7 @@
 
 Labyrinth::Labyrinth(string filename) {
 
-	this->width = 0;
+	this->maxWidth = 0;
 	string file = "../text/" + filename;
 	//Most important values
 	ifstream reader;    reader.open(file);  string textLine;
@@ -25,11 +25,11 @@ Labyrinth::Labyrinth(string filename) {
 				if(c == ' ')    continue;
 				line.push_back(new Field(c, x, y));
 			}
-			if(width == 0){
-				width = line.size();
-			}else if(width != line.size()){
+			if(line.size() > maxWidth){
+				maxWidth = line.size();
+			}/*else if(width != line.size()){
 				exit(3);
-			}
+			}*/
 
 
 			field.push_back(line);
@@ -61,8 +61,8 @@ Field *Labyrinth::getFieldAt(Position *p) {
 	return field[p->getY()][p->getX()];
 }
 
-int Labyrinth::getWidth() const {
-	return width;
+int Labyrinth::getMaxWidth() const {
+	return maxWidth;
 }
 
 int Labyrinth::getHeight() const {
@@ -78,4 +78,8 @@ Field * Labyrinth::getStart() {
 	}
 	cout << "Not found" << endl;
 	exit(-1);
+}
+
+const vector<Field *> &Labyrinth::getFieldAt(int y) const {
+	return field[y];
 }

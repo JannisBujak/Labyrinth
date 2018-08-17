@@ -20,7 +20,7 @@ int main() {
 	shortestWay->print();
 	cout << shortestWay->getLengthFromHere() << endl;
 
-	system("pause");
+	//system("pause");
 
 	return 0;
 }

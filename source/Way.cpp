@@ -79,7 +79,9 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 
 	for(Position* pos : testedPositions){
 
-		if(pos->getX() < 0 || pos->getX() >= l->getWidth() || pos->getY() < 0 || pos->getY() >= l->getHeight()){
+		int sizeOfTheActualLine = l->getFieldAt(pos->getY()).size();
+
+		if(pos->getX() < 0 || pos->getX() >= sizeOfTheActualLine || pos->getY() < 0 || pos->getY() >= l->getHeight()){
 			delete(pos);
 			continue;
 		}
@@ -89,6 +91,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 
 		Way* potentialWay = findShortestWay(pos, l, forbiddenFieldsCopy);
 		if(potentialWay == nullptr){
+			delete(potentialWay);
 			delete(pos);
 			continue;
 		}
@@ -97,7 +100,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	int length = - 1;
 	Way* returnWay = nullptr;
 	for(Way* way : possibleWays){
-		if(way->getLengthFromHere() > length){
+		if(way->getLengthFromHere() < length || length == -1){
 			length = way->getLengthFromHere();
 			returnWay = way;
 		}else{

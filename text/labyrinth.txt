@@ -1,7 +1,7 @@
 xxxxxxxxxxxxxxxxxxxxxx
-D-----xx--xxxx-xxx---x
-x-xx-x----------xxxxxx
-x-xx-x--xxx----xxxxxxx
+D------x--xxxx-------x
+x-xx-x----------xxx-xx
+x-xx-x--xxx----xxxx-xx
 x--x-xx---xxxxxxxxxOxx
 xxxx-xxxx----xxxxxx-xx
 x---------xx--------xx
