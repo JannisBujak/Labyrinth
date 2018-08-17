@@ -29,6 +29,8 @@ public:
 	void print();
 	void printField(Labyrinth* l);
 
+	static long getMemory();
+
 	static void printMemory();
 
 	//getter

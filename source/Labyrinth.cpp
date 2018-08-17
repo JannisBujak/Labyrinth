@@ -100,3 +100,7 @@ Labyrinth::~Labyrinth() {
 void Labyrinth::printMemory() {
 	cout << Labyrinth::Memory << " Labyrinth freed and not deleted." << endl;
 }
+
+long Labyrinth::getMemory() {
+	return Memory;
+}

@@ -33,3 +33,7 @@ int Position::getY() const {
 void Position::printMemory() {
 	cout << Position::Memory << " Position freed and not deleted." << endl;
 }
+
+long Position::getMemory() {
+	return Memory;
+}

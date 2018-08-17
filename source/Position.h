@@ -20,6 +20,8 @@ public:
 	int getY() const;
 
 	//Memory
+	static long getMemory();
+
 	static void printMemory();
 
 };

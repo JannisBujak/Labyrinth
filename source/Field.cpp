@@ -10,9 +10,15 @@ long Field::Memory = 0;
 
 Field::Field(char symbol, int x, int y) {
 	Memory++;
+	position = new Position(x, y);
 	this->symbol = symbol;
 	this->x = x;
 	this->y = y;
+}
+
+Field::~Field() {
+	delete(position);
+	Field::Memory--;
 }
 
 char Field::getSymbol() const {
@@ -32,13 +38,13 @@ void Field::printPosition() {
 }
 
 Position *Field::getPosition() {
-	return new Position(x, y);
+	return position;
 }
 
 void Field::printMemory() {
 	cout << Field::Memory << " fields freed and not deleted." << endl;
 }
 
-Field::~Field() {
-	Field::Memory--;
+long Field::getMemory() {
+	return Memory;
 }

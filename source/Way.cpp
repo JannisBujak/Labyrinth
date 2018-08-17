@@ -1,6 +1,6 @@
 //
-// Created by JannisB98 on 12.08.2018.
 //
+// Created by JannisB98 on 12.08.2018.
 
 #include <iostream>
 #include "Way.h"
@@ -29,6 +29,16 @@ void Way::addField(Field *field) {
 		return;
 	}
 	nextWay->addField(field);
+}
+
+void Way::appendWay(Way *way) {
+	if(this == nullptr)
+		exit(2);
+	if(nextWay == nullptr){
+		nextWay = way;
+		return;
+	}
+	nextWay->appendWay(way);
 }
 
 Field *Way::getField() const {
@@ -65,11 +75,10 @@ int Way::getLengthFromHere() {
 Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFields) {
 
 	Field* fieldAtP = l->getFieldAt(p);
-	Way* thisWay = new Way(fieldAtP);
 	if(fieldAtP->getSymbol() == '#'){
-		delete(thisWay);
 		return nullptr;
 	}
+	Way* thisWay = new Way(fieldAtP);
 	if(fieldAtP->getSymbol() == 'O'){
 		return thisWay;
 	}
@@ -92,12 +101,12 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 			continue;
 		}
 		if(Way::isInFieldVector(l->getFieldAt(pos), forbiddenFields)){
+			delete(pos);
 			continue;
 		}
 
 		Way* potentialWay = findShortestWay(pos, l, forbiddenFieldsCopy);
 		if(potentialWay == nullptr){
-			delete(potentialWay);
 			delete(pos);
 			continue;
 		}
@@ -108,15 +117,18 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	int length = - 1;
 	Way* returnWay = nullptr;
 	for(Way* way : possibleWays){
-		if(way->getLengthFromHere() < length || length == -1){
+		int lengthFromHere = way->getLengthFromHere();
+		if(lengthFromHere < length || length == -1){
+			length = lengthFromHere;
 			delete(returnWay);
-			length = way->getLengthFromHere();
 			returnWay = way;
 		}else{
 			delete(way);
 		}
 	}
+
 	if(length == -1 || returnWay == nullptr){
+		delete thisWay;
 		return nullptr;
 	}
 	thisWay->appendWay(returnWay);
@@ -155,16 +167,6 @@ void Way::printField(Labyrinth* l) {
 	}
 }
 
-void Way::appendWay(Way *way) {
-	if(this == nullptr)
-		exit(2);
-	if(nextWay == nullptr){
-		nextWay = way;
-		return;
-	}
-	nextWay->appendWay(way);
-}
-
 vector<Field *> Way::copyFieldVector(vector<Field*> fields) {
 	vector<Field *> vector1;
 	for(Field* f : fields){
@@ -184,4 +186,8 @@ bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
 
 void Way::printMemory() {
 	cout << Way::Memory << " ways freed and not deleted." << endl;
+}
+
+long Way::getMemory() {
+	return Way::Memory;
 }

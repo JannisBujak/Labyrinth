@@ -30,6 +30,8 @@ public:
 	Field * getStart();
 
 	//Memory
+	static long getMemory();
+
 	static void printMemory();
 
 

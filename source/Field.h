@@ -21,11 +21,14 @@ public:
 	void printPosition();
 
 	//Memory
+	static long getMemory();
+
 	static void printMemory();
 
 private:
 	static long Memory;
 	char symbol;
+	Position* position;
 	int x;
 	int y;
 };

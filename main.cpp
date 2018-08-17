@@ -31,10 +31,18 @@ int main(){
 	delete(shortestWay);
 	delete(l);
 
-	Way::printMemory();
-	Field::printMemory();
-	Labyrinth::printMemory();
-	Position::printMemory();
+	if(Way::getMemory() != 0){
+		Way::printMemory();
+	}
+	if(Labyrinth::getMemory() != 0){
+		Labyrinth::printMemory();
+	}
+	if(Position::getMemory() != 0){
+		Position::printMemory();
+	}
+	if(Field::getMemory() != 0){
+		Field::printMemory();
+	}
 	return 0;
 }
 #endif
