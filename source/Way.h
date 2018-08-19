@@ -11,6 +11,8 @@
 class Way {
 private:
 	static long Memory;
+	static long callsOf_FindShortestWay;
+
 	Field* field;
 	Way* nextWay;
 public:
@@ -29,8 +31,9 @@ public:
 	void print();
 	void printField(Labyrinth* l);
 
-	static long getMemory();
+	static long getCallsOf_FindShortestWay();
 
+	static long getMemory();
 	static void printMemory();
 
 	//getter

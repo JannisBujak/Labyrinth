@@ -11,7 +11,7 @@ using namespace std;
 
 int main(){
 
-	Labyrinth* l = new Labyrinth("labyrinth.txt");
+	Labyrinth* l = new Labyrinth("labyrinthS.txt");
 	l->print();
 	cout << endl;
 	Field* start = l->getUniqueField('S');
@@ -26,7 +26,6 @@ int main(){
 
 
 	shortestWay->printField(l);
-	system("pause");
 
 	delete(shortestWay);
 	delete(l);
@@ -43,6 +42,9 @@ int main(){
 	if(Field::getMemory() != 0){
 		Field::printMemory();
 	}
+	long calls = Way::getCallsOf_FindShortestWay();
+	cout << endl << calls << " Calls" << endl;
+	//system("pause");
 	return 0;
 }
 #endif

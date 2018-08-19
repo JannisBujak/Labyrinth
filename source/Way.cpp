@@ -8,6 +8,7 @@
 using namespace std;
 
 long Way::Memory = 0;
+long Way::callsOf_FindShortestWay = 0;
 
 Way::Way(Field* field){
 	Way::Memory++;
@@ -73,6 +74,7 @@ int Way::getLengthFromHere() {
 }
 
 Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFields) {
+	callsOf_FindShortestWay++;
 
 	Field* fieldAtP = l->getFieldAt(p);
 	if(fieldAtP->getSymbol() == '#'){
@@ -84,14 +86,6 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	vector<Field*> forbiddenFieldsCopy = Way::copyFieldVector(forbiddenFields);
 	forbiddenFieldsCopy.push_back(l->getFieldAt(p));
 
-
-	/*
-	vector<Position*> testedPositions = {       new Position(p->getX() + 1, p->getY()),
-											 new Position(p->getX() - 1, p->getY()),
-											 new Position(p->getX(), p->getY() - 1),
-											 new Position(p->getX(), p->getY() + 1),
-											 };
-	*/
 
 	vector<Position*> testedPositions = Labyrinth::getOptimumFollowingPoints(p, l->getUniqueField('E')->getPosition());
 
@@ -208,4 +202,8 @@ void Way::printMemory() {
 
 long Way::getMemory() {
 	return Way::Memory;
+}
+
+long Way::getCallsOf_FindShortestWay() {
+	return callsOf_FindShortestWay;
 }
