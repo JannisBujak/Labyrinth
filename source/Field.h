@@ -8,15 +8,12 @@
 
 #include "Position.h"
 
-class Field {
+class Field : public Position{
 public:
 	Field(char symbol, int x, int y);
 	~Field();
 
 	char getSymbol() const;
-	int getX() const;
-	int getY() const;
-	Position* getPosition();
 
 	void printPosition();
 
@@ -27,10 +24,7 @@ public:
 
 private:
 	static long Memory;
-	char symbol;
-	Position* position;
-	int x;
-	int y;
+	char symbol{};
 };
 
 

@@ -8,16 +8,14 @@ using namespace std;
 
 long Field::Memory = 0;
 
-Field::Field(char symbol, int x, int y) {
+Field::Field(char symbol, int x, int y)
+:Position(x, y){
+
 	Memory++;
-	position = new Position(x, y);
 	this->symbol = symbol;
-	this->x = x;
-	this->y = y;
 }
 
 Field::~Field() {
-	delete(position);
 	Field::Memory--;
 }
 
@@ -25,20 +23,8 @@ char Field::getSymbol() const {
 	return symbol;
 }
 
-int Field::getX() const {
-	return x;
-}
-
-int Field::getY() const {
-	return y;
-}
-
 void Field::printPosition() {
 	cout << "(" << this->getX() << "|" << this->getY() << "): " << getSymbol() << endl;
-}
-
-Position *Field::getPosition() {
-	return position;
 }
 
 void Field::printMemory() {

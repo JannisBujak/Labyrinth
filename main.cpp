@@ -11,14 +11,14 @@ using namespace std;
 
 int main(){
 
-	Labyrinth* l = new Labyrinth("labyrinthS.txt");
+	Labyrinth* l = new Labyrinth("labyrinth.txt");
 	l->print();
 	cout << endl;
 	Field* start = l->getUniqueField('S');
 
 	vector<Field*> forbiddenFields;
 
-	Way* shortestWay = Way::findShortestWay(start->getPosition(), l, forbiddenFields);
+	Way* shortestWay = Way::findShortestWay(start, l, forbiddenFields);
 
 	cout << "start: ";
 	shortestWay->print();

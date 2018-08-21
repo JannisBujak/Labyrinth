@@ -87,7 +87,7 @@ Way *Way::findShortestWay(Position* p, Labyrinth* l, vector<Field*> forbiddenFie
 	forbiddenFieldsCopy.push_back(l->getFieldAt(p));
 
 
-	vector<Position*> testedPositions = Labyrinth::getOptimumFollowingPoints(p, l->getUniqueField('E')->getPosition());
+	vector<Position*> testedPositions = Labyrinth::getOptimumFollowingPoints(p, l->getUniqueField('E'));
 
 	vector<Way*> possibleWays;
 
