@@ -11,13 +11,13 @@ long Way::Memory = 0;
 long Way::callsOf_FindShortestWay = 0;
 
 Way::Way(Field* field){
-	Way::Memory++;
+	Way::Memory += sizeof(Way);
 	this->field = field;
 	nextWay = nullptr;
 }
 
 Way::~Way() {
-	Way::Memory--;
+	Way::Memory -= sizeof(Way);
 	field = nullptr;
 	if(nextWay != nullptr) {
 		delete(nextWay);
@@ -44,10 +44,6 @@ void Way::appendWay(Way *way) {
 
 Field *Way::getField() const {
 	return field;
-}
-
-void Way::setField(Field *field) {
-	Way::field = field;
 }
 
 Way *Way::getNextWay() const {
@@ -196,12 +192,16 @@ bool Way::isInFieldVector(Field* f, vector<Field *> fields) {
 	return false;
 }
 
-void Way::printMemory() {
-	cout << Way::Memory << " ways freed and not deleted." << endl;
+long Way::getNumberOfObjects() {
+	return Way::Memory / sizeof(Way);
 }
 
 long Way::getMemory() {
 	return Way::Memory;
+}
+
+void Way::printMemory() {
+	cout << Way::Memory << " bytes for class [Way] freed and not deleted." << endl;
 }
 
 long Way::getCallsOf_FindShortestWay() {

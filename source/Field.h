@@ -18,8 +18,9 @@ public:
 	void printPosition();
 
 	//Memory
-	static long getMemory();
+	static long getNumberOfObjects();
 
+	static long getMemory();
 	static void printMemory();
 
 private:

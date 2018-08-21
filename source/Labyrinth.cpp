@@ -11,7 +11,8 @@ long Labyrinth::Memory = 0;
 
 Labyrinth::Labyrinth(string filename) {
 
-	Labyrinth::Memory++;
+	Labyrinth::Memory += sizeof(Labyrinth);
+
 	this->maxWidth = 0;
 	string file = "../text/" + filename;
 	//Most important values
@@ -89,7 +90,7 @@ const vector<Field *> &Labyrinth::getFieldAt(int y) const {
 }
 
 Labyrinth::~Labyrinth() {
-	Labyrinth::Memory--;
+	Labyrinth::Memory -= sizeof(Labyrinth);
 	for(vector<Field*> row : field) {
 		for(Field* field1 : row){
 			delete(field1);
@@ -97,12 +98,16 @@ Labyrinth::~Labyrinth() {
 	}
 }
 
-void Labyrinth::printMemory() {
-	cout << Labyrinth::Memory << " Labyrinth freed and not deleted." << endl;
+long Labyrinth::getNumberOfObjects() {
+	return Labyrinth::Memory / sizeof(Labyrinth);
 }
 
 long Labyrinth::getMemory() {
 	return Memory;
+}
+
+void Labyrinth::printMemory() {
+	cout << Labyrinth::Memory << " bytes of class [Labyrinth] freed and not deleted." << endl;
 }
 
 vector<Position *> Labyrinth::getOptimumFollowingPoints(Position *position, Position *end) {

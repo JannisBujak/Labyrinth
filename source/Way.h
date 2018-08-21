@@ -33,6 +33,7 @@ public:
 
 	static long getCallsOf_FindShortestWay();
 
+	static long getNumberOfObjects();
 	static long getMemory();
 	static void printMemory();
 
@@ -41,8 +42,6 @@ public:
 	Way *getNextWay() const;
 	int getLengthFromHere();
 
-	//setter
-	void setField(Field *field);
 	void setNextWay(Way *nextWay);
 };
 

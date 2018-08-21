@@ -32,8 +32,9 @@ public:
 	static vector<Position* > getOptimumFollowingPoints(Position *position, Position *end);
 
 	//Memory
-	static long getMemory();
+	static long getNumberOfObjects();
 
+	static long getMemory();
 	static void printMemory();
 
 
