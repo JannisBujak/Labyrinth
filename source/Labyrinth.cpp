@@ -2,9 +2,13 @@
 // Created by JannisB98 on 09.08.2018.
 //
 
+#include <string>
+#include <iostream>
 #include "Labyrinth.h"
 #include <fstream>
 #include <vector>
+
+
 using namespace std;
 
 long Labyrinth::Memory = 0;
@@ -14,7 +18,8 @@ Labyrinth::Labyrinth(string filename) {
 	Labyrinth::Memory += sizeof(Labyrinth);
 
 	this->maxWidth = 0;
-	string file = "../text/" + filename;
+	string file = "text/" + filename;
+	system("dir");
 	//Most important values
 	ifstream reader;    reader.open(file);  string textLine;
 	if(reader.is_open())

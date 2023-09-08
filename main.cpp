@@ -44,7 +44,7 @@ int main(){
 	}
 	long calls = Way::getCallsOf_FindShortestWay();
 	cout << endl << calls << " Calls" << endl;
-	//system("pause");
+	system("pause");
 	return 0;
 }
 #endif

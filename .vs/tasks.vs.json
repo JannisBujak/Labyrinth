@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "Task-CMakeLists",
+      "appliesTo": "CMakeLists.txt",
+      "type": "launch"
+    },
+    {
+      "taskName": "Task-Labyrinth",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}
