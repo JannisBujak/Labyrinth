@@ -3,8 +3,13 @@
 **/.vscode/**
 **/.idea/**
 **/*build*/**
-**/CMakeFiles/**
 
+x86/**
+x64/**
+**/Debug/**
+**/Release/**
+
+**.idea
 
 **.hint
 /enc_temp_folder/**
